@@ -1,0 +1,1200 @@
+/* ============================================================
+   Lumensight Technology Consulting — Shared Stylesheet
+   File: css/styles.css
+   ============================================================
+
+   TABLE OF CONTENTS
+   -----------------
+   1.  CSS Custom Properties (design tokens / variables)
+   2.  Reset & Base Styles
+   3.  Typography
+   4.  Layout Utilities
+   5.  Navigation
+   6.  Hero Section
+   7.  Section Containers
+   8.  Cards (pillar / service / industry cards)
+   9.  Buttons & CTAs
+   10. About Page Specifics
+   11. Services Page Specifics
+   12. Industries Page Specifics
+   13. Products Page Specifics
+   14. Contact Page Specifics
+   15. Footer
+   16. Responsive Breakpoints
+   ============================================================ */
+
+
+/* ============================================================
+   1. CSS CUSTOM PROPERTIES
+   Design tokens live here — change a value once, it updates
+   everywhere the variable is referenced.
+   ============================================================ */
+:root {
+  /* Brand colours — Lumensight green + gold palette */
+  --color-navy:        #111111;   /* primary dark — near-black (site background) */
+  --color-navy-mid:    #1E1E1E;   /* slightly lighter for gradients */
+  --color-teal:        #4CAF50;   /* Lumensight green (the "L" in the logo) */
+  --color-teal-dark:   #2E7D32;   /* darker green — logo 3D face / hover states */
+  --color-teal-light:  #EAF6EA;   /* very light green tint for backgrounds */
+  --color-gold:        #F5B21D;   /* Lumensight gold/yellow (the "S" in the logo) */
+  --color-gold-dark:   #C98A00;   /* darker gold — accessible on white */
+  --color-gold-light:  #FEF6E1;   /* light gold tint */
+
+  /* Neutral palette */
+  --color-white:       #FFFFFF;
+  --color-gray-50:     #F5F5F5;   /* page section background */
+  --color-gray-100:    #E4E4E4;   /* borders, dividers */
+  --color-gray-400:    #8A8A8A;   /* muted / secondary text */
+  --color-gray-700:    #3D3D3D;   /* body text */
+  --color-gray-900:    #111111;   /* headings */
+
+  /* Typography */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+               Roboto, Helvetica, Arial, sans-serif;
+
+  /* Spacing scale (multiples of 8px) */
+  --space-1:  0.25rem;   /*  4px */
+  --space-2:  0.5rem;    /*  8px */
+  --space-3:  0.75rem;   /* 12px */
+  --space-4:  1rem;      /* 16px */
+  --space-5:  1.25rem;   /* 20px */
+  --space-6:  1.5rem;    /* 24px */
+  --space-8:  2rem;      /* 32px */
+  --space-10: 2.5rem;    /* 40px */
+  --space-12: 3rem;      /* 48px */
+  --space-16: 4rem;      /* 64px */
+  --space-20: 5rem;      /* 80px */
+  --space-24: 6rem;      /* 96px */
+
+  /* Layout */
+  --max-width:     1140px;
+  --border-radius: 8px;
+  --border-radius-lg: 16px;
+
+  /* Shadows */
+  --shadow-sm:  0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-md:  0 4px 12px rgba(0,0,0,0.10), 0 2px 4px rgba(0,0,0,0.06);
+  --shadow-lg:  0 10px 30px rgba(0,0,0,0.12), 0 4px 8px rgba(0,0,0,0.06);
+
+  /* Transitions */
+  --transition: 200ms ease;
+}
+
+
+/* ============================================================
+   2. RESET & BASE STYLES
+   Remove browser defaults so we start from a predictable base.
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px; /* 1rem = 16px */
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--color-gray-700);
+  background-color: var(--color-white);
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: var(--color-teal);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+a:hover,
+a:focus {
+  color: var(--color-teal-dark);
+}
+
+/* Visible focus ring for keyboard navigation (accessibility) */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 3px solid var(--color-teal);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+ul {
+  list-style: none;
+}
+
+
+/* ============================================================
+   3. TYPOGRAPHY
+   ============================================================ */
+
+/* Load Inter from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-sans);
+  color: var(--color-gray-900);
+  line-height: 1.25;
+  font-weight: 700;
+}
+
+h1 { font-size: clamp(2rem, 5vw, 3rem); }
+h2 { font-size: clamp(1.5rem, 3.5vw, 2.25rem); }
+h3 { font-size: clamp(1.125rem, 2.5vw, 1.5rem); }
+h4 { font-size: 1.125rem; }
+
+p { margin-bottom: var(--space-4); }
+p:last-child { margin-bottom: 0; }
+
+/* Eyebrow label above headings (small all-caps category label) */
+.eyebrow {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-teal);  /* Lumensight green */
+  margin-bottom: var(--space-3);
+}
+
+/* Subheading / lead paragraph */
+.lead {
+  font-size: 1.125rem;
+  color: var(--color-gray-700);
+  max-width: 56ch; /* keeps lines readable */
+}
+
+.text-center { text-align: center; }
+.text-white  { color: var(--color-white) !important; }
+.text-navy   { color: var(--color-navy) !important; }
+.text-teal   { color: var(--color-teal) !important; }
+.text-muted  { color: var(--color-gray-400); }
+
+
+/* ============================================================
+   4. LAYOUT UTILITIES
+   ============================================================ */
+
+/* Centered content wrapper */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin-inline: auto;       /* centers the container */
+  padding-inline: var(--space-6); /* gutters on mobile */
+}
+
+/* Section vertical rhythm */
+.section {
+  padding-block: var(--space-20);
+}
+
+.section--lg {
+  padding-block: var(--space-24);
+}
+
+.section--sm {
+  padding-block: var(--space-12);
+}
+
+/* Alternate section backgrounds */
+.section--white { background-color: var(--color-white); }
+.section--gray  { background-color: var(--color-gray-50); }
+.section--navy  {
+  background-color: #111111;
+  color: var(--color-white);
+}
+.section--navy h2,
+.section--navy h3 {
+  color: var(--color-white);
+}
+
+/* Section heading block */
+.section-header {
+  margin-bottom: var(--space-12);
+}
+
+.section-header .lead {
+  margin-top: var(--space-4);
+}
+
+.section-header.text-center .lead {
+  margin-inline: auto;
+}
+
+/* Simple 3-column auto grid */
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-8);
+}
+
+/* 2-column grid */
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--space-8);
+}
+
+/* Flex row */
+.flex-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  flex-wrap: wrap;
+}
+
+
+/* ============================================================
+   5. NAVIGATION
+   The top nav bar shared across all pages.
+   ============================================================ */
+.site-header {
+  position: sticky;          /* sticks to the top as you scroll */
+  top: 0;
+  z-index: 100;
+  background-color: var(--color-navy);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  /* Frosted-glass depth illusion via box-shadow */
+  box-shadow: 0 2px 16px rgba(0,0,0,0.25);
+}
+
+.site-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+}
+
+/* Brand wordmark */
+.site-logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  text-decoration: none;
+}
+
+.site-logo__icon {
+  /* Green "L" interlocking with gold "S" — the Lumensight mark */
+  width: 42px;
+  height: 38px;
+  flex-shrink: 0;
+}
+
+/* Wordmark: green, all-caps, letter-spaced — matches the brand lockup */
+.site-logo__name {
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: var(--color-teal);
+  letter-spacing: 0.14em;
+}
+
+/* Nav links */
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.site-nav a {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.80);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--border-radius);
+  transition: color var(--transition), background-color var(--transition);
+  text-decoration: none;
+}
+
+.site-nav a:hover,
+.site-nav a:focus {
+  color: var(--color-white);
+  background-color: rgba(255,255,255,0.08);
+}
+
+/* Active page link gets a teal underline indicator */
+.site-nav a.active {
+  color: var(--color-teal);
+}
+
+/* CTA button in nav */
+.site-nav .btn-nav {
+  background-color: var(--color-teal);
+  color: var(--color-white);
+  padding: var(--space-2) var(--space-5);
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  margin-left: var(--space-2);
+}
+
+.site-nav .btn-nav:hover,
+.site-nav .btn-nav:focus {
+  background-color: var(--color-teal-dark);
+  color: var(--color-white);
+}
+
+
+/* ============================================================
+   6. HERO SECTION
+   Full-width hero with a dark gradient background and
+   decorative geometric SVG shapes for visual interest.
+   ============================================================ */
+.hero {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 60%, #111111 100%);
+  color: var(--color-white);
+  padding-block: var(--space-24);
+  min-height: 520px;
+  display: flex;
+  align-items: center;
+}
+
+/* Abstract decorative circles — pure CSS, no images needed */
+.hero::before,
+.hero::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Large faint ring, top-right — green glow */
+.hero::before {
+  width: 600px;
+  height: 600px;
+  top: -200px;
+  right: -150px;
+  border: 1px solid rgba(77,184,72,0.20);
+  background: radial-gradient(circle, rgba(77,184,72,0.07) 0%, transparent 70%);
+}
+
+/* Smaller accent ring, bottom-left — gold glow */
+.hero::after {
+  width: 300px;
+  height: 300px;
+  bottom: -100px;
+  left: -80px;
+  border: 1px solid rgba(240,165,0,0.15);
+  background: radial-gradient(circle, rgba(240,165,0,0.05) 0%, transparent 70%);
+}
+
+.hero__content {
+  position: relative; /* sits above the ::before/::after decorations */
+  z-index: 1;
+  max-width: 680px;
+}
+
+.hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: var(--space-4);
+}
+
+.hero__eyebrow::before {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--color-gold);
+}
+
+.hero h1 {
+  color: var(--color-white);
+  margin-bottom: var(--space-6);
+  font-size: clamp(2.25rem, 5.5vw, 3.25rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.hero h1 em {
+  font-style: normal;
+  color: var(--color-gold);  /* gold for the emphasis word in hero */
+}
+
+.hero__sub {
+  font-size: 1.125rem;
+  color: rgba(255,255,255,0.78);
+  line-height: 1.7;
+  margin-bottom: var(--space-10);
+  max-width: 52ch;
+}
+
+.hero__actions {
+  display: flex;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+/* Inner-page hero (shorter) */
+.hero--page {
+  min-height: 280px;
+  padding-block: var(--space-16);
+}
+
+.hero--page h1 {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+}
+
+
+/* ============================================================
+   7. SECTION CONTAINERS (repeated content areas)
+   ============================================================ */
+
+/* Gold horizontal rule under headings — a signature Lumensight device */
+.divider {
+  width: 100%;
+  max-width: 320px;
+  height: 2px;
+  background: var(--color-gold);
+  border: none;
+  margin-top: var(--space-5);
+  margin-bottom: var(--space-8);
+}
+
+.divider--center { margin-inline: auto; }
+
+/* Short variant */
+.divider--short { max-width: 56px; height: 3px; }
+
+
+/* ============================================================
+   8. CARDS
+   Generic card component used for service pillars, industries,
+   and product items throughout the site.
+   ============================================================ */
+.card {
+  background: var(--color-white);
+  border: 1px solid var(--color-gray-100);
+  border-radius: var(--border-radius-lg);
+  padding: var(--space-8);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--transition), transform var(--transition);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-3px);  /* subtle lift effect on hover */
+}
+
+/* Card icon container (holds the SVG/emoji icon) */
+.card__icon {
+  width: 52px;
+  height: 52px;
+  background: var(--color-teal-light);
+  border-radius: var(--border-radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-6);
+  flex-shrink: 0;
+}
+
+.card__icon svg {
+  color: var(--color-teal-dark);
+}
+
+/* Alternate every other card icon to gold for brand rhythm */
+.grid-2 > .card:nth-child(even) .card__icon,
+.grid-3 > .card:nth-child(even) .card__icon {
+  background: var(--color-gold-light);
+}
+
+.grid-2 > .card:nth-child(even) .card__icon svg,
+.grid-3 > .card:nth-child(even) .card__icon svg {
+  color: var(--color-gold-dark);
+}
+
+/* Card headings carry the gold underline rule from the brand's card style */
+.card h3 {
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-4);
+  border-bottom: 2px solid var(--color-gold);
+}
+
+/* "Pillar" variant: dark background (used on home page teasers) */
+.card--dark {
+  background: #1a1a1a;
+  border-color: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.82);
+}
+
+.card--dark h3 {
+  color: var(--color-white);
+}
+
+.card--dark .card__icon {
+  background: rgba(77,184,72,0.15);
+}
+
+.card--dark .card__link {
+  color: var(--color-teal);
+  font-weight: 600;
+  font-size: 0.875rem;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  margin-top: var(--space-5);
+  transition: gap var(--transition), color var(--transition);
+}
+
+.card--dark .card__link:hover {
+  color: rgba(27,154,170,0.8);
+  gap: var(--space-3);
+}
+
+/* Card link arrow indicator */
+.card__link-arrow {
+  font-size: 1rem;
+  line-height: 1;
+  display: inline-block;
+  transition: transform var(--transition);
+}
+.card__link:hover .card__link-arrow {
+  transform: translateX(4px);
+}
+
+/* Industry cards: left-border accent style */
+.card--industry {
+  border-left: 4px solid var(--color-gold);
+  padding-left: var(--space-6);
+}
+
+.card--industry h3 {
+  font-size: 1.125rem;
+  color: var(--color-navy);
+  margin-bottom: var(--space-2);
+}
+
+/* Product feature card: icon + text side by side */
+.card--feature {
+  display: flex;
+  gap: var(--space-6);
+  align-items: flex-start;
+}
+
+.card--feature .card__icon {
+  margin-bottom: 0;
+}
+
+
+/* ============================================================
+   9. BUTTONS & CTAs
+   ============================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1;
+  padding: 0.8125rem var(--space-6); /* 13px top/bottom, 24px sides */
+  border-radius: var(--border-radius);
+  border: 2px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color var(--transition), color var(--transition),
+              border-color var(--transition), box-shadow var(--transition),
+              transform var(--transition);
+}
+
+.btn:hover { transform: translateY(-1px); }
+.btn:active { transform: translateY(0); }
+
+/* Primary: teal fill */
+.btn--primary {
+  background-color: var(--color-teal);
+  color: var(--color-white);
+  border-color: var(--color-teal);
+}
+
+.btn--primary:hover,
+.btn--primary:focus {
+  background-color: var(--color-teal-dark);
+  border-color: var(--color-teal-dark);
+  color: var(--color-white);
+  box-shadow: 0 4px 14px rgba(77,184,72,0.35);
+}
+
+/* Secondary: white outline (for use on dark backgrounds) */
+.btn--outline {
+  background-color: transparent;
+  color: var(--color-white);
+  border-color: rgba(255,255,255,0.5);
+}
+
+.btn--outline:hover,
+.btn--outline:focus {
+  background-color: rgba(255,255,255,0.08);
+  border-color: var(--color-white);
+  color: var(--color-white);
+}
+
+/* Teal outline (for light backgrounds) */
+.btn--outline-teal {
+  background-color: transparent;
+  color: var(--color-teal);
+  border-color: var(--color-teal);
+}
+
+.btn--outline-teal:hover,
+.btn--outline-teal:focus {
+  background-color: var(--color-teal);
+  color: var(--color-white);
+}
+
+
+/* ============================================================
+   10. ABOUT PAGE SPECIFICS
+   ============================================================ */
+
+/* "Dictionary entry" style treatment for the Lumensight name */
+.definition-block {
+  background: var(--color-gray-50);
+  border-left: 4px solid var(--color-teal);   /* green accent */
+  border-radius: 0 var(--border-radius-lg) var(--border-radius-lg) 0;
+  padding: var(--space-10) var(--space-10);
+  max-width: 720px;
+}
+
+.definition-block__word {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--color-navy);
+  letter-spacing: -0.02em;
+}
+
+.definition-block__pronunciation {
+  font-size: 0.9375rem;
+  color: var(--color-gray-400);
+  margin-top: var(--space-1);
+  margin-bottom: var(--space-5);
+  font-style: italic;
+}
+
+.definition-block__pos {
+  font-size: 0.875rem;
+  font-style: italic;
+  color: var(--color-gray-400);
+  margin-right: var(--space-2);
+}
+
+.definition-block__body {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--color-gray-700);
+  margin-top: var(--space-4);
+}
+
+.definition-block__year {
+  display: inline-block;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-gold-dark);
+  margin-top: var(--space-5);
+  padding: var(--space-1) var(--space-3);
+  border: 1px solid var(--color-gold);
+  border-radius: 20px;
+}
+
+/* Values grid on about page */
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-6);
+}
+
+.value-item {
+  padding: var(--space-6);
+  border-top: 3px solid var(--color-gold);
+  background: var(--color-white);
+  border-radius: 0 0 var(--border-radius) var(--border-radius);
+  box-shadow: var(--shadow-sm);
+}
+
+.value-item__number {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--color-gold);
+  line-height: 1;
+  margin-bottom: var(--space-2);
+}
+
+.value-item h4 {
+  color: var(--color-navy);
+  margin-bottom: var(--space-2);
+}
+
+
+/* ============================================================
+   11. SERVICES PAGE SPECIFICS
+   ============================================================ */
+
+/* Numbered service section (large pillar layout) */
+.service-pillar {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-8);
+  align-items: start;
+  padding: var(--space-10) 0;
+  border-bottom: 1px solid var(--color-gray-100);
+}
+
+.service-pillar:last-child {
+  border-bottom: none;
+}
+
+.service-pillar__number {
+  font-size: 4rem;
+  font-weight: 800;
+  line-height: 1;
+  /* gradient text technique: fill the number with the green–gold gradient */
+  background: linear-gradient(135deg, var(--color-teal), var(--color-gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  user-select: none;
+  min-width: 80px;
+}
+
+.service-pillar__body h3 {
+  color: var(--color-navy);
+  margin-bottom: var(--space-5);
+  padding-bottom: var(--space-4);
+  border-bottom: 2px solid var(--color-gold);
+}
+
+.service-pillar__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-5);
+}
+
+.tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: var(--space-1) var(--space-3);
+  background: var(--color-teal-light);
+  color: var(--color-teal-dark);
+  border-radius: 20px;
+  letter-spacing: 0.03em;
+}
+
+/* Gold variant tag */
+.tag--gold {
+  background: var(--color-gold-light);
+  color: var(--color-gold-dark);
+}
+
+
+/* ============================================================
+   12. INDUSTRIES PAGE SPECIFICS
+   ============================================================ */
+
+/* Large icon + content layout for each industry */
+.industry-row {
+  display: flex;
+  gap: var(--space-8);
+  align-items: flex-start;
+  padding: var(--space-10) 0;
+  border-bottom: 1px solid var(--color-gray-100);
+}
+
+.industry-row:last-child { border-bottom: none; }
+
+.industry-row__icon-wrap {
+  width: 64px;
+  height: 64px;
+  background: #111111;
+  border-radius: var(--border-radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.industry-row__icon-wrap svg {
+  color: var(--color-teal);
+}
+
+.industry-row h3 {
+  color: var(--color-navy);
+  margin-bottom: var(--space-5);
+  padding-bottom: var(--space-4);
+  border-bottom: 2px solid var(--color-gold);
+}
+
+/* Stat badge */
+.stat-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+  margin-top: var(--space-8);
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-item__value {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--color-gold);
+  line-height: 1;
+  display: block;
+}
+
+.stat-item__label {
+  font-size: 0.875rem;
+  color: rgba(255,255,255,0.7);
+  margin-top: var(--space-1);
+  display: block;
+}
+
+
+/* ============================================================
+   13. PRODUCTS PAGE SPECIFICS
+   ============================================================ */
+
+.product-card {
+  background: var(--color-white);
+  border: 1px solid var(--color-gray-100);
+  border-radius: var(--border-radius-lg);
+  padding: var(--space-8);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow var(--transition), transform var(--transition);
+}
+
+.product-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-3px);
+}
+
+.product-card__badge {
+  display: inline-block;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: var(--space-1) var(--space-3);
+  background: #111111;
+  color: var(--color-gold);
+  border-radius: 20px;
+  margin-bottom: var(--space-5);
+  align-self: flex-start;
+}
+
+.product-card h3 {
+  color: var(--color-navy);
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-4);
+  border-bottom: 2px solid var(--color-gold);
+}
+
+.product-card__list {
+  margin-top: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  flex-grow: 1;
+}
+
+.product-card__list li {
+  font-size: 0.9375rem;
+  color: var(--color-gray-700);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+}
+
+/* Teal checkmark bullet */
+.product-card__list li::before {
+  content: '✓';
+  color: var(--color-teal);
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 0.1em;
+}
+
+
+/* ============================================================
+   14. CONTACT PAGE SPECIFICS
+   ============================================================ */
+
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: var(--space-16);
+  align-items: start;
+}
+
+/* Contact info column */
+.contact-info h3 {
+  color: var(--color-navy);
+  margin-bottom: var(--space-8);
+}
+
+.contact-detail {
+  display: flex;
+  gap: var(--space-4);
+  align-items: flex-start;
+  margin-bottom: var(--space-6);
+}
+
+.contact-detail__icon {
+  width: 40px;
+  height: 40px;
+  background: var(--color-gold-light);
+  border-radius: var(--border-radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.contact-detail__icon svg { color: var(--color-gold-dark); }
+
+.contact-detail__label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-gray-400);
+  display: block;
+  margin-bottom: var(--space-1);
+}
+
+/* Contact form */
+.contact-form {
+  background: var(--color-white);
+  border: 1px solid var(--color-gray-100);
+  border-radius: var(--border-radius-lg);
+  padding: var(--space-10);
+  box-shadow: var(--shadow-md);
+}
+
+.form-group {
+  margin-bottom: var(--space-6);
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-gray-900);
+  margin-bottom: var(--space-2);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem var(--space-4);
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  color: var(--color-gray-900);
+  background: var(--color-gray-50);
+  border: 1.5px solid var(--color-gray-100);
+  border-radius: var(--border-radius);
+  transition: border-color var(--transition), box-shadow var(--transition);
+  appearance: none; /* normalizes <select> across browsers */
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--color-teal);
+  box-shadow: 0 0 0 3px rgba(77,184,72,0.15);
+  background: var(--color-white);
+}
+
+.form-group textarea {
+  min-height: 140px;
+  resize: vertical;
+}
+
+/* Row of two fields side-by-side */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-5);
+}
+
+.form-note {
+  font-size: 0.8125rem;
+  color: var(--color-gray-400);
+  margin-top: var(--space-6);
+  text-align: center;
+}
+
+
+/* ============================================================
+   15. FOOTER
+   ============================================================ */
+.site-footer {
+  background-color: #0a0a0a;  /* slightly darker than the dark base */
+  color: rgba(255,255,255,0.65);
+  padding-block: var(--space-16) var(--space-10);
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: var(--space-12);
+  margin-bottom: var(--space-12);
+}
+
+.footer-brand p {
+  font-size: 0.9375rem;
+  margin-top: var(--space-4);
+  max-width: 34ch;
+  line-height: 1.65;
+}
+
+.footer-col h4 {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-white);
+  margin-bottom: var(--space-5);
+}
+
+.footer-col ul {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.footer-col ul a {
+  font-size: 0.9375rem;
+  color: rgba(255,255,255,0.60);
+  transition: color var(--transition);
+}
+
+.footer-col ul a:hover {
+  color: var(--color-teal);
+}
+
+.footer-bottom {
+  padding-top: var(--space-8);
+  border-top: 1px solid rgba(255,255,255,0.07);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  font-size: 0.875rem;
+  color: rgba(255,255,255,0.4);
+}
+
+.footer-bottom a {
+  color: rgba(255,255,255,0.40);
+}
+
+.footer-bottom a:hover { color: var(--color-teal); }
+
+
+/* ============================================================
+   16. RESPONSIVE BREAKPOINTS
+   Mobile-first means styles above already work on mobile.
+   These breakpoints enhance the layout on larger screens.
+   ============================================================ */
+
+/* Tablet and up (≥ 768px) */
+@media (max-width: 768px) {
+
+  /* Collapse nav on mobile */
+  .site-nav {
+    display: none; /* for this purely-static build; a JS hamburger would handle toggling */
+  }
+
+  /* Stack pillar and industry rows vertically */
+  .service-pillar {
+    grid-template-columns: 1fr;
+  }
+
+  .service-pillar__number {
+    font-size: 2.5rem;
+    min-width: auto;
+  }
+
+  .industry-row {
+    flex-direction: column;
+  }
+
+  /* Contact form: single column */
+  .contact-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  /* Footer: single column */
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .hero {
+    padding-block: var(--space-16);
+    min-height: auto;
+  }
+
+  /* Stat row wraps on small screens */
+  .stat-row {
+    justify-content: center;
+  }
+}
+
+/* Very small screens (≤ 480px) */
+@media (max-width: 480px) {
+  .hero__actions {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Desktop tweaks (≥ 1024px) */
+@media (min-width: 1024px) {
+  .container {
+    padding-inline: var(--space-8);
+  }
+}

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About — Lumensight Technology Consulting</title>
+<meta name="description" content="Lumensight is a boutique technology consulting firm founded in 2016, serving regulated-industry clients across North America, Latin America, and Europe.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy-900:#0a1930;
+    --navy-800:#0f2647;
+    --navy-700:#16345f;
+    --teal-500:#17b8b0;
+    --teal-400:#2fd3c9;
+    --teal-050:#e6faf8;
+    --ink:#0f1c2e;
+    --body:#4a5a70;
+    --line:#e2e8f0;
+    --surface:#ffffff;
+    --surface-alt:#f5f8fb;
+    --radius:14px;
+    --maxw:1140px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+    color:var(--body);
+    background:var(--surface);
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{font-family:'Sora','Inter',sans-serif;color:var(--ink);line-height:1.2;letter-spacing:-0.02em}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+  /* ---------- Accessibility utilities ---------- */
+  .sr-only{
+    position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+    overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;
+  }
+  .skip-link{
+    position:absolute;top:-100px;left:0;z-index:200;
+    background:var(--navy-900);color:#fff;padding:12px 20px;
+    font-weight:600;font-size:.9rem;border-radius:0 0 10px 0;
+    transition:top .15s ease;
+  }
+  .skip-link:focus{top:0}
+  a:focus-visible,
+  button:focus-visible{
+    outline:2px solid var(--navy-800);outline-offset:3px;border-radius:4px;
+  }
+  .nav a:focus-visible, .nav button:focus-visible,
+  .hero a:focus-visible, .hero button:focus-visible,
+  .cta a:focus-visible, .cta button:focus-visible,
+  footer a:focus-visible, footer button:focus-visible{
+    outline-color:#fff;
+  }
+
+  /* ---------- Nav ---------- */
+  .nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(10,25,48,.92);
+    -webkit-backdrop-filter:saturate(160%) blur(10px);    backdrop-filter:saturate(160%) blur(10px);
+    border-bottom:1px solid rgba(255,255,255,.08);
+  }
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .brand{display:flex;align-items:center;gap:10px;font-family:'Sora',sans-serif;font-weight:700;font-size:1.2rem;color:#fff;letter-spacing:-.02em}
+  .brand svg{display:block}
+  .nav-links{display:flex;align-items:center;gap:32px}
+  .nav-links a{color:#c7d4e6;font-size:.94rem;font-weight:500;transition:color .2s}
+  .nav-links a:hover{color:var(--teal-400)}
+  .nav-links a.active{color:var(--teal-400)}
+  .btn{
+    display:inline-block;border-radius:999px;font-weight:600;font-size:.94rem;
+    padding:12px 24px;transition:transform .15s ease, box-shadow .2s ease, background .2s;
+    border:1px solid transparent;cursor:pointer;
+  }
+  .btn-primary{background:var(--teal-500);color:#04231f;box-shadow:0 6px 18px rgba(23,184,176,.3)}
+  .btn-primary:hover{background:var(--teal-400);transform:translateY(-1px)}
+
+  /* ---------- Page hero ---------- */
+  .hero{
+    background:
+      radial-gradient(900px 420px at 78% 12%, rgba(23,184,176,.22), transparent 60%),
+      radial-gradient(700px 400px at 8% 88%, rgba(47,211,201,.12), transparent 60%),
+      linear-gradient(160deg, var(--navy-900) 0%, var(--navy-800) 55%, var(--navy-700) 100%);
+    color:#e8eff8;padding:84px 0 92px;position:relative;overflow:hidden;
+  }
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:.78rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--teal-400);background:rgba(23,184,176,.12);
+    border:1px solid rgba(23,184,176,.3);border-radius:999px;padding:6px 14px;margin-bottom:22px;
+  }
+  .hero h1{font-size:clamp(2.2rem,4.6vw,3.5rem);color:#fff;margin-bottom:20px;max-width:18ch}
+  .hero p.lede{font-size:1.14rem;color:#b9c9de;max-width:56ch;margin-bottom:22px}
+  .hero .meta{font-size:.9rem;color:#8ba2bf}
+
+  /* ---------- Sections ---------- */
+  section{padding:92px 0}
+  section.alt{background:var(--surface-alt);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .section-head{max-width:640px;margin:0 auto 54px;text-align:center}
+  .section-head .eyebrow{background:var(--teal-050);border-color:#bfece8;color:#0d7c76}
+  .section-head h2{font-size:clamp(1.8rem,3.2vw,2.4rem);margin-bottom:14px}
+  .section-head p{font-size:1.05rem}
+
+  /* ---------- Definition block ---------- */
+  .definition{
+    background:var(--surface-alt);border-left:4px solid var(--teal-500);
+    border-radius:0 var(--radius) var(--radius) 0;padding:44px;max-width:720px;margin:0 auto;
+  }
+  .definition .word{font-family:'Sora',sans-serif;font-size:2rem;font-weight:700;color:var(--ink)}
+  .definition .pos{font-size:.85rem;font-style:italic;color:#8ba2bf;margin:4px 0 18px}
+  .definition .body{font-size:1.02rem;line-height:1.8;color:var(--body)}
+  .definition .badge{
+    display:inline-block;margin-top:20px;font-size:.76rem;font-weight:600;letter-spacing:.08em;
+    text-transform:uppercase;color:#0d7c76;padding:5px 14px;border:1px solid #bfece8;
+    border-radius:999px;background:var(--teal-050);
+  }
+
+  /* ---------- Values grid ---------- */
+  .values{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .value{padding:26px;border-top:3px solid var(--teal-500);background:#fff;border-radius:0 0 12px 12px;box-shadow:0 4px 14px rgba(15,38,71,.06)}
+  .value .num{font-family:'Sora',sans-serif;font-size:2.2rem;font-weight:700;color:#0d7c76;line-height:1;margin-bottom:10px}
+  .value h3{font-size:1.05rem;margin-bottom:8px}
+  .value p{font-size:.92rem}
+
+  /* ---------- CTA ---------- */
+  .cta{
+    background:linear-gradient(120deg,var(--navy-800),var(--navy-700));color:#fff;
+    border-radius:20px;padding:52px;display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap;
+  }
+  .cta h2{color:#fff;font-size:1.8rem;margin-bottom:8px}
+  .cta p{color:#b9c9de;max-width:48ch}
+
+  /* ---------- Footer ---------- */
+  footer{background:var(--navy-900);color:#9fb2c9;padding:64px 0 28px}
+  .foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:40px;padding-bottom:40px}
+  footer .brand{margin-bottom:14px}
+  footer p{font-size:.92rem;max-width:34ch}
+  footer h3{color:#fff;font-family:'Sora',sans-serif;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px}
+  footer ul{list-style:none;font-size:.93rem}
+  footer li{margin-bottom:10px}
+  footer a:hover{color:var(--teal-400)}
+  .foot-bottom{
+    border-top:1px solid rgba(255,255,255,.1);padding-top:22px;
+    display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:.86rem;
+  }
+  .foot-bottom nav{display:flex;gap:22px}
+
+  @media (max-width:768px){
+    /* Nav: wrap onto its own row and shrink instead of disappearing (no JS on this site) */
+    .nav-inner{flex-wrap:wrap;height:auto;padding:14px 0;row-gap:10px}
+    .nav-links{width:100%;justify-content:center;flex-wrap:wrap;gap:10px 18px}
+    .nav-links a{font-size:.86rem}
+    .nav-links .btn{padding:9px 18px;font-size:.86rem}
+
+    /* Columns stack */
+    .values{grid-template-columns:1fr}
+    .foot-grid{grid-template-columns:1fr;gap:28px}
+
+    /* Text & spacing scale down */
+    section{padding:56px 0}
+    .hero{padding:56px 0 64px}
+    .hero h1{font-size:clamp(1.9rem,7vw,2.3rem);max-width:none}
+    .hero p.lede{font-size:1rem}
+    .section-head h2{font-size:clamp(1.5rem,5vw,1.9rem)}
+    .definition{padding:26px}
+    .definition .word{font-size:1.6rem}
+    .cta{padding:32px;flex-direction:column;align-items:flex-start;text-align:left}
+  }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="index.html">
+      <svg width="28" height="28" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <circle cx="16" cy="16" r="14" stroke="#2fd3c9" stroke-width="2"/>
+        <path d="M16 6v20M6 16h20" stroke="#2fd3c9" stroke-width="1.2" opacity=".45"/>
+        <circle cx="16" cy="16" r="5.5" fill="#2fd3c9"/>
+      </svg>
+      Lumensight
+    </a>
+    <nav class="nav-links" id="navLinks" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="about.html" class="active" aria-current="page">About</a>
+      <a href="services.html">Services</a>
+      <a href="industries.html">Industries</a>
+      <a href="products.html">Products</a>
+      <a class="btn btn-primary" href="contact.html">Get in Touch</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============ PAGE HERO ============ -->
+  <section class="hero">
+    <div class="wrap">
+      <span class="eyebrow">About Lumensight</span>
+      <h1>A boutique partner, not a box-checking vendor.</h1>
+      <p class="lede">
+        Founded in 2016, Lumensight was built on a simple conviction: regulated-industry
+        clients deserve a partner who speaks their language, respects their constraints,
+        and stays focused on results &mdash; not billable hours.
+      </p>
+      <p class="meta">Est. 2016 &middot; Serving North America, Latin America &amp; Europe</p>
+    </div>
+  </section>
+
+  <!-- ============ DEFINITION ============ -->
+  <section>
+    <div class="wrap">
+      <div class="definition">
+        <div class="word">Lumensight</div>
+        <div class="pos">noun &middot; /ˈluː.mən.saɪt/</div>
+        <p class="body">
+          A firm that brings clarity to technology decisions in complex, regulated
+          environments. We illuminate the path forward &mdash; the risks, the tradeoffs,
+          the sequencing &mdash; without dictating the destination. The direction is
+          always yours; the vantage point is what we provide.
+        </p>
+        <span class="badge">Est. 2016</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ VALUES ============ -->
+  <section class="alt">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Why Lumensight</span>
+        <h2>A three-part value proposition</h2>
+        <p>This is what we bring to every engagement, and what we hold ourselves to on every one of them.</p>
+      </div>
+      <div class="values">
+        <div class="value">
+          <div class="num">01</div>
+          <h3>Regulated-Industry Fluency</h3>
+          <p>We speak compliance, audit, and regulatory risk without translation &mdash; because we've sat on your side of the table before.</p>
+        </div>
+        <div class="value">
+          <div class="num">02</div>
+          <h3>Direct, Accountable Counsel</h3>
+          <p>We tell you what we think, not what's easiest to hear, and we measure success by the outcome our work enables &mdash; not a deliverable handed over and forgotten.</p>
+        </div>
+        <div class="value">
+          <div class="num">03</div>
+          <h3>End-to-End Partnership</h3>
+          <p>We stay with an engagement from strategy through delivery, rather than handing you off between practices.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CTA ============ -->
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="cta">
+        <div>
+          <h2>Let's talk about your next move.</h2>
+          <p>Start with a conversation about your goals, your constraints, and your timeline &mdash; no sales script, no obligation.</p>
+        </div>
+        <a class="btn btn-primary" href="contact.html">Get in Touch</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="brand" href="index.html">
+          <svg width="26" height="26" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+            <circle cx="16" cy="16" r="14" stroke="#2fd3c9" stroke-width="2"/>
+            <circle cx="16" cy="16" r="5.5" fill="#2fd3c9"/>
+          </svg>
+          Lumensight
+        </a>
+        <p>Technology consulting for regulated industries. Serving clients across North America, Latin America, and Europe since 2016.</p>
+      </div>
+
+      <div>
+        <h3>Services</h3>
+        <ul>
+          <li><a href="services.html#strategy">Technology Strategy</a></li>
+          <li><a href="services.html#engineering">Software Engineering &amp; DevOps</a></li>
+          <li><a href="services.html#security">Cybersecurity</a></li>
+          <li><a href="services.html#cloud">Cloud Adoption</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3>Navigation</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="industries.html">Industries</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3>Contact</h3>
+        <ul>
+          <li><a href="mailto:info@lumensight.com">info@lumensight.com</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="foot-bottom">
+      <span>&copy; 2026 Lumensight Technology Consulting. All rights reserved.</span>
+      <nav aria-label="Footer">
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
